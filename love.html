@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #fff0f5;
+            color: #4b0082;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff1493;
+            font-size: 2.5rem;
+        }
+        .gif-container {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #ff1493;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ff69b4;
+            transform: scale(1.1);
+        }
+        #noo-button {
+            position: relative;
+        }
+        .special-button {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            padding: 15px 30px;
+            font-size: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .sign-in-container {
+            text-align: center;
+        }
+
+        .form-container {
+            margin-top: 20px;
+        }
+
+        .sign-in-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 2px solid #ff69b4;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .sign-in-form input:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 0 5px rgba(255, 20, 147, 0.3);
+        }
+
+        .special-button {
+            margin: 10px;
+        }
+        
+        #certificate-container {
+            padding: 20px;
+        }
+        
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #certificate-content, #certificate-content * {
+                visibility: visible;
+            }
+            #certificate-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+
+        .creator-form {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ff1493;
+            font-size: 18px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ff69b4;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 0 5px rgba(255, 20, 147, 0.3);
+        }
+
+        /* Hearts Animation */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff1493;
+            transform: rotate(45deg);
+            animation: heartFloat 4s ease-in infinite;
+            opacity: 0;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: #ff1493;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart:before {
+            left: -10px;
+        }
+
+        .heart:after {
+            top: -10px;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                transform: rotate(45deg) translateY(0) scale(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: rotate(45deg) translateY(-1000px) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        let nooClickCount = 0;
+
+        function handleYes() {
+            document.body.innerHTML = `
+                <h1>I NEW IT YOU LOVE ME😘😘  Love youu too baby 💝✨🥰💫</h1>
+                <div class="gif-container">
+                    <img src="https://media.giphy.com/media/Z21HJj2kz9uBG/giphy.gif" alt="Kissing Cats GIF" width="300">
+                </div>
+                
+                <h2>You're the best! 🌸💖🦋💫</h2>
+                <button class="special-button" onclick="openSpecialMessage()">some thing special click here 💌</button>
+            `;
+        }
+
+        function handleNo() {
+            nooClickCount++;
+            if (nooClickCount === 1) {
+                document.body.innerHTML = `
+                    <h1>Please yess press kar do naaa 😢</h1>
+                    <div class="gif-container">
+                        <img src="https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif" alt="Sad Cat GIF" width="300">
+                    </div>
+                    <button onclick="handleYes()">Yess</button>
+                    <button id="noo-button" onclick="handleNo()">Noo</button>
+                `;
+            } else if (nooClickCount === 2) {
+                document.body.innerHTML = `
+                    <h1>Pls baby maan jao naaa 🥺💕</h1>
+                    <div class="gif-container">
+                        <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat Love GIF" width="300">
+                    </div>
+                    <button onclick="handleYes()">Yess</button>
+                    <button id="noo-button" onclick="handleNo()">Noo</button>
+                `;
+            } else {
+                const nooButton = document.getElementById('noo-button');
+                nooButton.style.position = 'absolute';
+                nooButton.style.top = `${Math.random() * 80 + 10}%`;
+                nooButton.style.left = `${Math.random() * 80 + 10}%`;
+            }
+        }
+
+        function openSpecialMessage() {
+            document.body.innerHTML = `
+                <h1>Our Love Story 💑</h1>
+                
+                <h2>Every moment with you is magical ✨</h2>
+                <p style="font-size: 20px; margin: 20px;">
+                    You make my heart smile 💝<br>
+                    You are my sunshine 🌞<br>
+                    My perfect match 🔐<br>
+                    Forever yours 💕
+                </p>
+                <div class="gif-container">
+                    <img src="https://media.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Love Cats GIF" width="300">
+                </div>
+                <h3>I Love You Forever 💖</h3>
+                <button class="special-button" onclick="finalMessage()">Press Once Again 🌹</button>
+            `;
+        }
+
+        function finalMessage() {
+            document.body.innerHTML = `
+                <h1>You Complete Me 💑✨</h1>
+                <div class="gif-container">
+                    <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Love Hearts GIF" width="300">
+                </div>
+                <h2>My Heart Beats For You 💓</h2>
+                <p style="font-size: 20px; margin: 20px;">
+                    You're my favorite notification 📱<br>
+                    My best good morning 🌅<br>
+                    My sweetest dream 💫<br>
+                    My perfect goodnight 🌙<br>
+                    My everything 💝
+                </p>
+                
+                <h3>Forever & Always 💖</h3>
+                <button class="special-button" onclick="showCertificateCreator()">Make It Legal 💝</button>
+            `;
+        }
+
+        function showCertificateCreator() {
+            document.body.innerHTML = `
+                <h1>Create Your Love Certificate 💌</h1>
+                <div class="creator-form">
+                    <form onsubmit="generateCertificate(event)">
+                        <div class="form-group">
+                            <label>Your Name:</label>
+                            <input type="text" id="personName1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Your Love's Name:</label>
+                            <input type="text" id="personName2" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Choose Certificate Style:</label>
+                            <select id="certificateStyle">
+                                <option value="romantic">Romantic Hearts</option>
+                                <option value="elegant">Elegant Floral</option>
+                                <option value="modern">Modern Minimalist</option>
+                                <option value="vintage">Vintage Love</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Choose Background Image:</label>
+                            <select id="bgImage">
+                                <option value="hearts">Floating Hearts</option>
+                                <option value="roses">Red Roses</option>
+                                <option value="doves">Love Doves</option>
+                                <option value="rings">Wedding Rings</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Choose Quote Type:</label>
+                            <select id="quoteType" onchange="toggleQuoteInput()">
+                                <option value="preset">Use Preset Quote</option>
+                                <option value="custom">Write My Own</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="presetQuoteGroup">
+                            <label>Choose Love Quote:</label>
+                            <select id="loveQuote">
+                                <option value="quote1">"In your eyes, I found my home. In your heart, I found my love."</option>
+                                <option value="quote2">"Every love story is beautiful, but ours is my favorite."</option>
+                                <option value="quote3">"To love and to cherish, from this day forward."</option>
+                                <option value="quote4">"Two hearts, one love, forever together."</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="customQuoteGroup" style="display: none;">
+                            <label>Write Your Custom Message:</label>
+                            <textarea id="customQuote" rows="4" placeholder="Write your heartfelt message here..."></textarea>
+                        </div>
+
+                        <button type="submit" class="special-button">Generate Certificate 💖</button>
+                    </form>
+                </div>
+            `;
+        }
+
+        function generateCertificate(event) {
+            event.preventDefault();
+            
+            // Show hearts animation
+            const heartsContainer = document.createElement('div');
+            heartsContainer.className = 'hearts-container';
+            heartsContainer.style.display = 'block';
+            document.body.appendChild(heartsContainer);
+            createHearts();
+
+            // Add a slight delay before showing the certificate
+            setTimeout(() => {
+                const name1 = document.getElementById('personName1').value;
+                const name2 = document.getElementById('personName2').value;
+                const style = document.getElementById('certificateStyle').value;
+                const bgImage = document.getElementById('bgImage').value;
+                const quoteType = document.getElementById('quoteType').value;
+                
+                // Fix quote selection
+                let quote;
+                if (quoteType === 'custom') {
+                    quote = document.getElementById('customQuote').value;
+                } else {
+                    const selectedQuote = document.getElementById('loveQuote').value;
+                    // Map the quote values to actual text
+                    const quotes = {
+                        'quote1': "In your eyes, I found my home. In your heart, I found my love.",
+                        'quote2': "Every love story is beautiful, but ours is my favorite.",
+                        'quote3': "To love and to cherish, from this day forward.",
+                        'quote4': "Two hearts, one love, forever together."
+                    };
+                    quote = quotes[selectedQuote];
+                }
+
+                // Background images mapping
+                const backgrounds = {
+                    hearts: "url('https://example.com/hearts-bg.jpg')",
+                    roses: "url('https://example.com/roses-bg.jpg')",
+                    doves: "url('https://example.com/doves-bg.jpg')",
+                    rings: "url('https://example.com/rings-bg.jpg')"
+                };
+
+                // Certificate styles mapping
+                const styles = {
+                    romantic: { font: 'Dancing Script', color: '#ff1493' },
+                    elegant: { font: 'Playfair Display', color: '#4a0404' },
+                    modern: { font: 'Montserrat', color: '#333333' },
+                    vintage: { font: 'Great Vibes', color: '#8b4513' }
+                };
+
+                const selectedStyle = styles[style];
+
+                document.body.innerHTML = `
+                    <div id="certificate-container">
+                        <div class="certificate" id="certificate-content" style="
+                            background: ${backgrounds[bgImage]};
+                            font-family: ${selectedStyle.font}, cursive;
+                            color: ${selectedStyle.color};
+                            padding: 40px;
+                            margin: 20px auto;
+                            max-width: 800px;
+                            border: 2px solid gold;
+                            position: relative;
+                        ">
+                            <div class="certificate-content">
+                                <h1 style="font-size: 36px; text-align: center;">Certificate of Love</h1>
+                                <p style="font-size: 24px; text-align: center; margin: 20px 0;">
+                                    This certifies that<br>
+                                    <span style="font-size: 32px; font-weight: bold;">${name1}</span><br>
+                                    and<br>
+                                    <span style="font-size: 32px; font-weight: bold;">${name2}</span><br>
+                                    have declared their love for each other
+                                </p>
+                                
+                                <p style="font-size: 20px; text-align: center; font-style: italic; margin: 30px 0;">
+                                    "${quote}"
+                                </p>
+
+                                <p style="font-size: 24px; text-align: center; margin-top: 40px; color: #ff1493;">
+                                    Don't Break It 💝
+                                </p>
+
+                                <p style="font-size: 18px; text-align: center; margin-top: 20px;">
+                                    Date: ${new Date().toLocaleDateString()}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin: 20px;">
+                        <button class="special-button" onclick="window.print()">Print Certificate 🖨️</button>
+                        <button class="special-button" onclick="downloadCertificate()">Download Certificate 💝</button>
+                    </div>
+                `;
+            }, 500);
+        }
+
+        function downloadCertificate() {
+            const certificateContent = document.getElementById('certificate-content');
+            
+            // Show loading message
+            const loadingMsg = document.createElement('div');
+            loadingMsg.innerHTML = '<p style="text-align: center;">Preparing your certificate... 💝</p>';
+            document.body.appendChild(loadingMsg);
+
+            html2canvas(certificateContent, {
+                scale: 2, // Higher quality
+                useCORS: true, // Allow loading external images
+                backgroundColor: null
+            }).then(canvas => {
+                // Remove loading message
+                loadingMsg.remove();
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.download = 'love-certificate.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(err => {
+                console.error('Error generating certificate:', err);
+                loadingMsg.innerHTML = '<p style="text-align: center; color: red;">Sorry, there was an error creating your certificate. Please try again.</p>';
+            });
+        }
+
+        // Add function to toggle between preset and custom quotes
+        function toggleQuoteInput() {
+            const quoteType = document.getElementById('quoteType').value;
+            const presetGroup = document.getElementById('presetQuoteGroup');
+            const customGroup = document.getElementById('customQuoteGroup');
+            
+            if (quoteType === 'custom') {
+                presetGroup.style.display = 'none';
+                customGroup.style.display = 'block';
+            } else {
+                presetGroup.style.display = 'block';
+                customGroup.style.display = 'none';
+            }
+        }
+
+        // Update generatePage function to handle custom quotes
+        function generatePage(event) {
+            event.preventDefault();
+            const creatorName = document.getElementById('creatorName').value;
+            const loveName = document.getElementById('loveName').value;
+            const themeColor = document.getElementById('themeColor').value;
+            const quoteType = document.getElementById('quoteType').value;
+            const gifStyle = document.getElementById('gifStyle').value;
+            
+            // Get quote based on type selection
+            let finalQuote;
+            if (quoteType === 'custom') {
+                finalQuote = document.getElementById('customQuote').value;
+            } else {
+                const quotes = {
+                    quote1: "You're my perfect match 💑",
+                    quote2: "Together forever & always 💕",
+                    quote3: "You complete my world ✨"
+                };
+                finalQuote = quotes[document.getElementById('loveQuote').value];
+            }
+
+            // Define theme colors and GIFs as before
+            const themes = {
+                pink: {
+                    background: '#fff0f5',
+                    primary: '#ff1493',
+                    secondary: '#ff69b4'
+                },
+                blue: {
+                    background: '#e6f3ff',
+                    primary: '#007bff',
+                    secondary: '#4da6ff'
+                },
+                purple: {
+                    background: '#f5e6ff',
+                    primary: '#8a2be2',
+                    secondary: '#ba55d3'
+                }
+            };
+
+            const gifs = {
+                cats: "https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif",
+                hearts: "https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif",
+                couples: "https://media.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif"
+            };
+
+            const selectedTheme = themes[themeColor];
+            document.body.style.backgroundColor = selectedTheme.background;
+
+            // Generate the final love page
+            document.body.innerHTML = `
+                <style>
+                    .final-page {
+                        animation: fadeIn 1s ease-in;
+                    }
+                    .message-box {
+                        background: rgba(255, 255, 255, 0.9);
+                        padding: 20px;
+                        border-radius: 15px;
+                        margin: 20px auto;
+                        max-width: 600px;
+                        box-shadow: 0 0 20px ${selectedTheme.secondary}40;
+                    }
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(20px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    h1, h2 { color: ${selectedTheme.primary}; }
+                    .special-button {
+                        background: linear-gradient(45deg, ${selectedTheme.primary}, ${selectedTheme.secondary});
+                    }
+                </style>
+                <div class="final-page">
+                    <h1>💖 ${creatorName}'s Love Message 💖</h1>
+                    <h2>For My Dear ${loveName}</h2>
+                    
+                    <div class="gif-container">
+                        <img src="${gifs[gifStyle]}" alt="Love GIF" width="300">
+                    </div>
+
+                    <div class="message-box">
+                        <p style="font-size: 20px; white-space: pre-line;">${finalQuote}</p>
+                    </div>
+
+                    <div class="love-message">
+                        <p style="font-size: 20px; margin: 20px;">
+                            With all my love 💝<br>
+                            Forever yours,<br>
+                            ${creatorName} 💕
+                        </p>
+                    </div>
+
+                    
+                </div>
+            `;
+        }
+
+        function createHearts() {
+            const heartsContainer = document.createElement('div');
+            heartsContainer.className = 'hearts-container';
+            document.body.appendChild(heartsContainer);
+
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    heartsContainer.appendChild(heart);
+
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }, i * 300);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Do You Love Me? 🥰</h1>
+    <div class="gif-container">
+        <img src="https://media.giphy.com/media/E2d2tsgz7iHo4/giphy.gif" alt="Cute Cat Love GIF" width="300">
+    </div>
+    <button onclick="handleYes()">Yess</button>
+    <button id="noo-button" onclick="handleNo()">Noo</button>
+</body>
+</html>
